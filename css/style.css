@@ -1,0 +1,231 @@
+/* CSS Değişkenleri ile Renk Paleti (Görseldeki Tonlardan) */
+:root {
+    /* Genel Tema Renkleri */
+    --color-primary-bg: #F8F4E3; /* Açık bej/krem - Genel sayfa arkaplanı */
+    --color-secondary-bg: #FFFBF0; /* Fildişi beyazı/hafif krem - Galeri kartları ve lightbox içeriği arkaplanı */
+    --color-accent-dark-brown: #A0522D; /* Sienna - Başlıklar, vurgu elemanları, kapatma butonu */
+    --color-primary-text: #333333; /* Koyu gri/siyah - Ana metinler */
+    --color-secondary-text: #704228; /* Koyu kahverengi - Belirli vurgulu metinler */
+    --color-border-light-brown: #D3C6B3; /* Açık toprak tonu - Kart kenarlıkları, ayırıcılar */
+    --color-light-text-contrast: #FFFFFF; /* Beyaz - Koyu arkaplan üzerindeki metinler (header, footer, close-btn) */
+    
+    /* Gölge ve Overlay Renkleri */
+    --color-shadow: rgba(0, 0, 0, 0.1); /* Hafif siyah gölge */
+    --color-lightbox-overlay: rgba(0, 0, 0, 0.7); /* Yarı şeffaf koyu */
+}
+
+/* Genel stil */
+body {
+    font-family: 'Arial', sans-serif; /* Fontu isteğinize göre değiştirebilirsiniz (örn: Poppins) */
+    margin: 0;
+    background-color: var(--color-primary-bg);
+    color: var(--color-primary-text);
+    line-height: 1.6;
+}
+
+header {
+    background-color: var(--color-accent-dark-brown);
+    color: var(--color-light-text-contrast);
+    padding: 30px 0;
+    text-align: center;
+    box-shadow: 0 4px 8px var(--color-shadow);
+    animation: slideInFromTop 0.8s ease-out; /* Başlık animasyonu */
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.8em;
+    letter-spacing: 1px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Daha büyük galeri öğeleri */
+    gap: 25px; /* Daha fazla boşluk */
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 30px auto;
+}
+
+.gallery-item {
+    background-color: var(--color-secondary-bg); /* Kart arkaplanı */
+    border: 1px solid var(--color-border-light-brown); /* Açık kahverengi kenarlık */
+    box-shadow: 0 5px 15px var(--color-shadow); /* Daha belirgin gölge */
+    overflow: hidden;
+    text-align: center;
+    border-radius: 12px; /* Daha yuvarlak köşeler */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px); /* Hafif yukarı kalkma efekti */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* Daha koyu gölge */
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 220px; /* Sabit yükseklik, object-fit ile ayarlanır */
+    object-fit: cover; /* Resmin kutuyu doldurmasını sağlar */
+    display: block;
+    border-bottom: 1px solid var(--color-border-light-brown); /* Resim alt kenarlığı */
+    cursor: pointer;
+    transition: transform 0.4s ease-out; /* Resmi büyütme animasyonu */
+}
+
+.gallery-item img:hover {
+    transform: scale(1.08); /* Hafifçe büyütme */
+}
+
+footer {
+    background-color: var(--color-accent-dark-brown);
+    color: var(--color-light-text-contrast);
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 50px;
+    box-shadow: 0 -4px 8px var(--color-shadow);
+}
+
+/* Lightbox stilleri */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-lightbox-overlay); /* Yarı şeffaf koyu arkaplan */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0; /* Animasyon için başlangıç opaklığı */
+    animation: fadeIn 0.3s forwards; /* Lightbox açılış animasyonu */
+}
+
+.lightbox-content {
+    position: relative;
+    background-color: var(--color-secondary-bg); /* Açık renk arkaplan */
+    padding: 25px;
+    border-radius: 12px;
+    max-width: 85%; 
+    max-height: 85%;
+    overflow: hidden; 
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4); /* Daha belirgin gölge */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(0.8); /* Animasyon için başlangıç boyutu */
+    animation: popIn 0.3s forwards; /* Lightbox içerik animasyonu */
+}
+
+.lightbox-content img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+    border-radius: 8px; /* Resmin içindeki yuvarlaklık */
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    color: var(--color-light-text-contrast); /* Beyaz çarpı işareti */
+    font-size: 38px; /* Daha büyük kapatma butonu */
+    cursor: pointer;
+    background-color: var(--color-accent-dark-brown); /* Koyu kahverengi buton */
+    border-radius: 50%; /* Yuvarlak buton */
+    width: 50px; /* Daha büyük buton */
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s ease, transform 0.2s ease;
+    z-index: 1001;
+}
+
+.close-btn:hover {
+    background-color: #8B4513; /* Daha koyu kahverengi hover efekti */
+    transform: rotate(90deg); /* Kapatma butonuna dönüş animasyonu */
+}
+
+/* Animasyonlar (önceki koddan kopyalandı) */
+
+/* Sayfa yüklenirken başlığın yukarıdan gelmesi */
+@keyframes slideInFromTop {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Galeri öğelerinin yavaşça görünmesi */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Galeri öğelerinin aşağıdan yukarı doğru kayarak görünmesi */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Lightbox içeriğinin ortaya çıkması */
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Her galeri öğesi için gecikmeli animasyon */
+.animate-fade-in {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0; /* Başlangıçta gizli */
+}
+
+.animate-fade-in.delay-1 { animation-delay: 0.1s; }
+.animate-fade-in.delay-2 { animation-delay: 0.2s; }
+.animate-fade-in.delay-3 { animation-delay: 0.3s; }
+.animate-fade-in.delay-4 { animation-delay: 0.4s; }
+.animate-fade-in.delay-5 { animation-delay: 0.5s; }
+/* ... ve bu şekilde daha fazla gecikme ekleyebilirsiniz. */
+
+/* Lightbox kapanış animasyonları */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes popOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+}
